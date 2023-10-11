@@ -8,6 +8,7 @@ export const authOptions = {
     pages: {
         signIn: '/signin'
     },
+    secret: process.env.SECRET,
     providers: [
         CredentialsProvider({
             name: 'Credentials',
