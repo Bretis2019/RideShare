@@ -5,12 +5,12 @@ import { getStorage } from "firebase/storage";
 
 
 const firebaseConfig = {
-    apiKey: process.env.API_KEY,
-    authDomain: process.env.AUTH_DOMAIN,
-    projectId: process.env.PROJECT_ID,
-    storageBucket: process.env.STORAGE_BUCKET,
-    messagingSenderId: process.env.MESSAGING_SENDER_ID,
-    appId: process.env.APP_ID
+    apiKey: "AIzaSyAd2qvhlA9vHSqZrd8KkpYIBWmlqciadVM",
+    authDomain: "rideshare-570a7.firebaseapp.com",
+    projectId: "rideshare-570a7",
+    storageBucket: "rideshare-570a7.appspot.com",
+    messagingSenderId: "129186436077",
+    appId: "1:129186436077:web:4d9624ecd6e7b267528de4"
 };
 
 

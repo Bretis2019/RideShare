@@ -19,10 +19,14 @@ export async function POST(request){
     try {
         const {convoId, sender_id, text} = await request.json();
 
+        if(!convoId || !sender_id || !text){
+            return NextResponse.json({status: 400, message: "Missing credentials"})
+        }
+
         await createMessage(convoId, sender_id, text)
 
-        NextResponse.json({status : 200, message: "message created successfully"});
+        return NextResponse.json({status : 200, message: "message created successfully"});
     }catch (err) {
-        NextResponse.json({status : 400, message: `error creating message: ${err}`});
+        return NextResponse.json({status : 400, message: `error creating message: ${err}`});
     }
 }
