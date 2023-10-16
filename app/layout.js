@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
             <SessionProvider>
-                <div className={"flex flex-col-reverse md:flex-col"}>
+                <div className={"flex flex-col-reverse md:flex-col md:h-screen md:overflow-hidden no-scrollbar"}>
                     <Navbar />
                     {children}
                 </div>

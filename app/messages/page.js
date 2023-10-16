@@ -62,25 +62,25 @@ export default async function MatchesPage(){
         const item = data.data;
         return (
             <Link key={data.id} href={`/messages/${data.id}`}>
-                <div className={"flex gap-x-8 rounded-xl border-2 border-white px-8 py-4"}>
-                    <img className="h-16 w-16 rounded-full object-cover" src={item.image[0]} alt={item.name} />
-                    <div className={"flex flex-col gap-y-4"}>
+                <div className={"flex flex-col bg-white gap-y-8 rounded-xl border-4 border-purple-400 p-2 w-fit h-fit"}>
+                    <img className="h-60 w-60 rounded-2xl object-cover" src={item.profilePic} alt={item.name} />
+                    <div className={"flex justify-between text-black text-base"}>
                         <div>{item.name}</div>
-                        <div>{item.university.name}</div>
+                        <div>{item.home.name}</div>
                     </div>
                 </div>
             </Link>
         )
     });
 
-    if(elements.length === 0){
+    if(!elements){
         return (
             <div className={"h-[90svh] flex justify-center items-center text-2xl"}>No matches yet</div>
         )
     }
 
     return (
-        <div className={"flex flex-col gap-y-2"}>
+        <div className={"flex justify-center flex-wrap py-8 gap-2 h-[90svh] overflow-scroll"}>
             {elements}
         </div>
     )

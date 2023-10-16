@@ -26,6 +26,14 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.Card{
+  background: rgba( 155, 155, 155, 0.6 );
+  box-shadow: 0 8px 32px 0 rgba( 100, 100, 100, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
 @layer utilities {
   @variants responsive {
     /* Hide scrollbar for Chrome, Safari and Opera */

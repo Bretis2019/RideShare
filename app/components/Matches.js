@@ -5,22 +5,32 @@ import LoadingSpinner from "@/app/components/LoadingSpinner";
 import Cards from "@/app/components/Cards";
 import {redirect} from "next/navigation";
 
-async function getUserSwipes(email){
-    const usersCollection = collection(db, "users")
+async function getUserSwipesAndCheckFields(email){
+    const usersCollection = collection(db, "users");
 
     const q = query(usersCollection, where("email", "==", email));
 
     const querySnapshot = await getDocs(q);
 
     let accounts = [];
+    let hasMissingField = false;
 
     if (querySnapshot.size > 0) {
         await querySnapshot.forEach((doc) => {
-                const data = doc.data()
-                accounts = data.swipedAccounts;
+            const data = doc.data();
+            accounts = data.swipedAccounts;
+
+            // Check for missing fields
+            const requiredFields = ["image", "age", "name", "gender", "home", "university", "major", "bio", "hobbies", "profilePic"];
+            for (const field of requiredFields) {
+                if (!data[field]) {
+                    hasMissingField = true;
+                    break;
+                }
             }
-        );
-        return accounts;
+        });
+
+        return { accounts, hasMissingField };
     }
 }
 
@@ -39,7 +49,15 @@ export default async function Matches(){
 
     let loading = true;
 
-    const swipedAccounts = await getUserSwipes(email)
+    const response = await getUserSwipesAndCheckFields(email);
+
+    const swipedAccounts = response.accounts
+
+    const check = response.hasMissingField
+
+    if(check){
+        redirect("/form");
+    }
 
     const querySnapshot = await getDocs(collection(db, "users"));
     await querySnapshot.forEach((doc) => {

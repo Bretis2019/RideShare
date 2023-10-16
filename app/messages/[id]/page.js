@@ -1,5 +1,5 @@
 import {getServerSession} from "next-auth";
-import {collection, doc, getDoc, getDocs, onSnapshot, query, where} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs, query, where} from "firebase/firestore";
 import {db} from "@/app/firebase";
 import TypeBar from "@/app/messages/[id]/TypeBar";
 import React from "react";
@@ -67,12 +67,9 @@ export default async function MessagePage({params}) {
 
     return (
         <div className={"w-[100svw] h-[90svh] flex flex-col justify-between py-2"}>
-            <div className={"flex gap-x-8 border-b-2 border-white px-8 pb-4"}>
-                <img className="h-16 w-16 rounded-full object-cover" src={user.image[0]} alt={user.name} />
-                <div className={"flex flex-col gap-y-4"}>
-                    <div>{user.name}</div>
-                    <div>{user.university.name}</div>
-                </div>
+            <div className={"flex items-center gap-x-8 border-b-2 border-white px-8 pb-4"}>
+                <img className="h-16 w-16 rounded-full border-2 border-white" src={user.profilePic || user.images[0]} alt={user.name} />
+                <div className={"text-2xl font-semibold"}>{user.name}</div>
             </div>
             <div className={"px-4 py-4 h-full w-full"}>
                 <Messages convoId={convoId} id={id}/>

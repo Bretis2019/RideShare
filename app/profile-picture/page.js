@@ -23,7 +23,6 @@ export default function Images(){
     const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
     const [url, setUrl] = useState(null);
-    const [counter, setCounter] = useState(0);
     const router = useRouter();
     useEffect(() => {
         if(image){
@@ -37,17 +36,13 @@ export default function Images(){
         data.set('image', image);
         data.append('name', image.name);
 
-        fetch('/api/images', {
+        fetch('/api/profile-picture', {
             method: 'POST',
             body: data
         }).then(response => response.json())
             .then(data => {
                 if(data.status === 200){
-                    setCounter(prevState => prevState + 1);
-                    setImage(null)
-                    if(counter === 2){
-                        router.push('/profile-picture')
-                    }
+                    router.push('/aboutme')
                 }
                 setLoading(false);
             }).catch(err => {console.log(err)});
@@ -63,11 +58,8 @@ export default function Images(){
                         alt="Your Company"
                     />
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-                        Upload three images of yourself
+                        Upload a profile picture
                     </h2>
-                    <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                        <div className="bg-blue-600 h-2.5 rounded-full" style={{width: `${(counter / 3 ) * 100}%`}} />
-                    </div>
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -75,11 +67,11 @@ export default function Images(){
 
                         {image ?
                             <div className={"flex justify-center"}>
-                                <img className={"h-96 object-contain rounded-xl"} src={url} key={url} alt={"image"} />
+                                <img className={"h-80 object-contain rounded-xl"} src={url} key={url} alt={"image"} />
                             </div> :
                             <div className="flex items-center justify-center w-full">
                                 <label htmlFor="dropzone-file"
-                                       className="flex flex-col items-center justify-center w-full h-96 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                       className="flex flex-col items-center justify-center h-80 w-80 rounded-full border-2 border-gray-300 border-dashed cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                                         <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
