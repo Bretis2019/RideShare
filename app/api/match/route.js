@@ -1,5 +1,5 @@
 import {getServerSession} from "next-auth";
-import {arrayUnion, collection, getDocs, query, updateDoc, where, arrayRemove, addDoc} from "firebase/firestore";
+import {arrayUnion, collection, getDocs, query, updateDoc, where, arrayRemove, addDoc, deleteDoc} from "firebase/firestore";
 import {db} from "@/app/firebase";
 import {NextResponse} from "next/server";
 
@@ -105,6 +105,22 @@ async function removeSwipe(email, userEmail){
     })
 }
 
+async function removeConvo(email, userEmail){
+    const user_id1 = await getUserId(email);
+    const user_id2 = await getUserId(userEmail);
+    const convosCollection = collection(db, "convos")
+
+    const q = query(convosCollection, where("user_id1", "in", [user_id1, user_id2]), where("user_id2", "in", [user_id1, user_id2]));
+
+    const querySnapshot = await getDocs(q);
+
+    await querySnapshot.forEach((doc) => {
+        deleteDoc(doc.ref);
+        }
+    );
+
+}
+
 export async function POST(request){
 
     const session = await getServerSession();
@@ -138,6 +154,7 @@ export async function DELETE(request){
 
     try{
         await removeSwipe(email, userEmail);
+        await removeConvo(email, userEmail);
         return NextResponse.json({status: 200, message: "removed swipe successfully"});
     }catch(err){
         console.error('Error:', err);
