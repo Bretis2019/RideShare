@@ -60,8 +60,8 @@ export default function SettingsToggles(props){
     }, [oppositeGender,sameGender,sameUni,sameHome]);
 
     return (
-        <div className={"flex flex-col space-y-4"}>
-            <div>Matching preferences</div>
+        <div className={"flex flex-col items-center space-y-4"}>
+            <div className={"text-4xl"}>Matching preferences</div>
             <div className={"flex space-x-4"}>
                 <div>Opposite Gender</div>
                 <MyToggle disabled={sameGender} enabled={oppositeGender} handleClick={setOppositeGender}/>
