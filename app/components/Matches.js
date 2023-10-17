@@ -67,14 +67,14 @@ export default async function Matches(){
             const isUniMatch = currentUser.sameUni ? data.university.id === currentUser.university.id : true;
             const isHomeMatch = currentUser.sameHome ? data.home.id === currentUser.home.id : true;
             const isGenderMatch = currentUser.sameGender ? data.gender === currentUser.gender : true;
-            const isOppositeGenderMatch = currentUser.oppositeGender ? data.gender.name !== currentUser.gender.name : true;
+            const isOppositeGenderMatch = currentUser.oppositeGender ? data.gender !== currentUser.gender : true;
 
             if (
                 !swipedAccounts?.includes(data.email) &&
                 data.email !== email &&
                 isUniMatch &&
                 isHomeMatch &&
-                ((currentUser.sameGender && isGenderMatch) || (currentUser.oppositeGender && isOppositeGenderMatch))
+                (isGenderMatch || isOppositeGenderMatch)
             ) {
                 user.push(data);
                 id.push(doc.id);

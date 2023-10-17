@@ -2,6 +2,7 @@ import {collection, getDocs, query, where} from "firebase/firestore";
 import {db} from "@/app/firebase";
 import Link from "next/link";
 import {getServerSession} from "next-auth";
+import {redirect} from "next/navigation";
 
 function MessageSVG(){
     return (
@@ -31,7 +32,7 @@ export default async function Navbar() {
 
     const session = await getServerSession();
 
-    if(!session.user){
+    if(!session){
         return null
     }
 
@@ -51,7 +52,8 @@ export default async function Navbar() {
         return id;
     }
 
-    const id = await getUserId(session.user.email)
+    const id = await getUserId(session.user.email);
+
 
     return (
         <nav className={"z-50 bg-purple-400 w-[100svw] h-[10svh] flex justify-center items-center"}>

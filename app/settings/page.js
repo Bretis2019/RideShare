@@ -4,6 +4,7 @@ import SettingsToggles from "@/app/settings/SettingsToggles";
 import {getServerSession} from "next-auth";
 import {collection, getDocs, query, where} from "firebase/firestore";
 import {db} from "@/app/firebase";
+import {redirect} from "next/navigation";
 
 async function getUserByEmail(email){
     let user = null;
@@ -25,6 +26,10 @@ async function getUserByEmail(email){
 export default async function SettingsPage(){
 
     const session = await getServerSession();
+
+    if(!session){
+        redirect('/signin');
+    }
 
     const user = await getUserByEmail(session.user.email);
 
