@@ -4,11 +4,11 @@ import {NextResponse} from "next/server";
 import {getServerSession} from "next-auth";
 
 export async function POST(request){
-    const {name, university, home, major, age, gender} = await request.json();
+    const {oppositeGender, sameGender, sameUni, sameHome} = await request.json();
     const session = await getServerSession();
     const email = session.user.email;
 
-    if(!email || !name || !university || !home || !major || !age || !gender){
+    if(typeof oppositeGender === "undefined" || typeof sameGender === "undefined" || typeof sameUni === "undefined" || typeof sameHome === "undefined"){
         return NextResponse.json({status: 400, message: "Missing credentials"});
     }
 
@@ -22,31 +22,15 @@ export async function POST(request){
         if(querySnapshot.size > 0){
             querySnapshot.forEach((doc) => {
                 updateDoc(doc.ref, {
-                    name: name,
-                    university: university,
-                    home: home,
-                    major: major,
-                    age: age,
-                    gender: gender
+                    oppositeGender: oppositeGender,
+                    sameGender: sameGender,
+                    sameUni: sameUni,
+                    sameHome: sameHome
                 })
             });
             return NextResponse.json({status: 200, message: "user data updated successfully"})
-        }
-        else{
-            await addDoc(usersCollection, {
-                email: email,
-                name: name,
-                university: university,
-                home: home,
-                major: major,
-                age: age,
-                gender: gender,
-                sameGender: false,
-                oppositeGender: false,
-                sameUni: false,
-                sameHome: false,
-            })
-            return NextResponse.json({status: 200, message: "user data created successfully"})
+        }else{
+            return NextResponse.json({status: 400, message: "No user found"})
         }
 
     } catch (error) {

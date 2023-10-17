@@ -27,13 +27,8 @@ export async function POST(request){
                 })
             });
             return NextResponse.json({status: 200, message: "user data updated successfully"})
-        }
-        else{
-            await addDoc(usersCollection, {
-                bio: bio,
-                hobbies: hobbies,
-            })
-            return NextResponse.json({status: 200, message: "user data created successfully"})
+        }else{
+            return NextResponse.json({status: 400, message: "No user found"})
         }
 
     } catch (error) {

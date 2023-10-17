@@ -12,13 +12,13 @@ async function getUserSwipesAndCheckFields(email){
 
     const querySnapshot = await getDocs(q);
 
-    let accounts = [];
+    let user = null;
     let hasMissingField = false;
 
     if (querySnapshot.size > 0) {
         await querySnapshot.forEach((doc) => {
             const data = doc.data();
-            accounts = data.swipedAccounts;
+            user = data;
 
             // Check for missing fields
             const requiredFields = ["image", "age", "name", "gender", "home", "university", "major", "bio", "hobbies", "profilePic"];
@@ -30,7 +30,7 @@ async function getUserSwipesAndCheckFields(email){
             }
         });
 
-        return { accounts, hasMissingField };
+        return { user, hasMissingField };
     }
 }
 
@@ -51,7 +51,9 @@ export default async function Matches(){
 
     const response = await getUserSwipesAndCheckFields(email);
 
-    const swipedAccounts = response.accounts
+    const swipedAccounts = response.user.swipedAccounts
+
+    const currentUser = response.user;
 
     const check = response.hasMissingField
 
@@ -62,11 +64,23 @@ export default async function Matches(){
     const querySnapshot = await getDocs(collection(db, "users"));
     await querySnapshot.forEach((doc) => {
         const data = doc.data();
-        if(!swipedAccounts?.includes(data.email) && data.email !== email) {
-            user.push(data);
-            id.push(doc.id);
+            const isUniMatch = currentUser.sameUni ? data.university.id === currentUser.university.id : true;
+            const isHomeMatch = currentUser.sameHome ? data.home.id === currentUser.home.id : true;
+            const isGenderMatch = currentUser.sameGender ? data.gender === currentUser.gender : true;
+            const isOppositeGenderMatch = currentUser.oppositeGender ? data.gender.name !== currentUser.gender.name : true;
+
+            if (
+                !swipedAccounts?.includes(data.email) &&
+                data.email !== email &&
+                isUniMatch &&
+                isHomeMatch &&
+                ((currentUser.sameGender && isGenderMatch) || (currentUser.oppositeGender && isOppositeGenderMatch))
+            ) {
+                user.push(data);
+                id.push(doc.id);
+            }
+
         }
-    }
     );
     loading = false;
 

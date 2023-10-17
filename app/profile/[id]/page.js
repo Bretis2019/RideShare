@@ -51,7 +51,7 @@ export default async function ProfilePage({ params} ){
             <div className={"flex flex-col gap-y-4 w-[100svw] md:w-[60svw] md:items-start items-center"}>
                 <div className={"flex w-[100svw] justify-between"}>
                     <div className={"flex gap-x-1 pb-8"}>
-                        <div className={"text-2xl md:text-4xl font-semibold"}>{user.name}, </div>
+                        <div className={"text-2xl md:text-4xl font-semibold capitalize"}>{user.name}, </div>
                         <div className={"text-2xl md:text-4xl font-normal"}>{user.age}</div>
                     </div>
                     <div className={"Card h-fit w-fit rounded-full px-4 py-2 flex items-center gap-x-2"}>

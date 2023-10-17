@@ -17,10 +17,6 @@ export default function Messages(props){
         })
     }, [])
 
-    useEffect(() => {
-        console.log(messages)
-    },[messages])
-
 
     if(messages?.length > 0){
         const elements = messages.map(message => {
