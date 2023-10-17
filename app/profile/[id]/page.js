@@ -69,7 +69,7 @@ export default async function ProfilePage({ params} ){
                     <div>{user.major.name}</div>
                 </div>
                 <div className={"text-xl font-semibold"}>Hobbies</div>
-                <div className={"flex gap-x-2 flex-wrap"}>{hobbiesCardsElements}</div>
+                <div className={"flex gap-x-2 gap-y-2 flex-wrap"}>{hobbiesCardsElements}</div>
             </div>
         </div>
     )
