@@ -48,9 +48,9 @@ export default async function ProfilePage({ params} ){
             <div className={"w-[100svw] md:w-[40svw] h-[80svh] select-none cursor-grab rounded-b-2xl md:rounded-2xl overflow-hidden"}>
                 <ProfileImages images={SLIDES} />
             </div>
-            <div className={"flex flex-col gap-y-4 w-[100svw] md:w-[60svw] md:items-start items-center"}>
-                <div className={"flex w-[100svw] justify-between"}>
-                    <div className={"flex gap-x-1 pb-8"}>
+            <div className={"flex flex-col gap-y-4 w-[100svw] md:w-[60svw] px-2 md:items-start items-center"}>
+                <div className={"flex w-[100svw] px-2 justify-between"}>
+                    <div className={"flex gap-x-1  pb-8"}>
                         <div className={"text-2xl md:text-4xl font-semibold capitalize"}>{user.name}, </div>
                         <div className={"text-2xl md:text-4xl font-normal"}>{user.age}</div>
                     </div>
