@@ -67,8 +67,8 @@ export default async function MessagePage({params}) {
 
     return (
         <div className={"w-[100svw] h-[90svh] flex flex-col justify-between py-2"}>
-            <div className={"flex items-center gap-x-8 border-b-2 border-white px-8 pb-4"}>
-                <img className="h-16 w-16 rounded-full border-2 border-white" src={user.profilePic || user.images[0]} alt={user.name} />
+            <div className={"flex items-center gap-x-8 border-b-2 border-white px-8 pb-4 h-[10svh]"}>
+                <img className="h-16 w-16 rounded-full border-2 border-white object-cover" src={user.profilePic} alt={user.name} />
                 <div className={"text-2xl font-semibold"}>{user.name}</div>
             </div>
             <div className={"px-4 py-4 h-full w-full"}>

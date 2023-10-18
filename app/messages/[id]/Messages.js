@@ -23,12 +23,12 @@ export default function Messages(props){
             return (
                 <div className={`w-full flex ${message.sender_id === id ? "justify-start" : "justify-end"}`}
                      key={message.created_at}>
-                    <div className={`${message.sender_id === id ? "bg-gray-800" : "bg-blue-600"} rounded-full px-4 py-2`}>{message.text}</div>
+                    <div className={`${message.sender_id === id ? "bg-gray-800" : "bg-blue-600"} rounded-full px-4 py-2  max-w-[40svw] flex flex-wrap`}>{message.text}</div>
                 </div>
             )
         })
         return (
-            <div className={"flex flex-col gap-y-2"}>
+            <div className={"flex flex-col gap-y-2 h-[66svh] overflow-y-scroll no-scrollbar"}>
                 {elements}
             </div>
         )

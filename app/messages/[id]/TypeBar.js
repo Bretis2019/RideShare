@@ -8,25 +8,36 @@ export default function TypeBar(props){
 
     const [text, setText] = useState("");
 
+
+
     async function submitMessage(){
-        fetch("/api/message", {
-            method: "POST",
-            body: JSON.stringify({
-                text: text,
-                sender_id: sender_id,
-                convoId: convoId
+        if(text.length > 0){
+            fetch("/api/message", {
+                method: "POST",
+                body: JSON.stringify({
+                    text: text,
+                    sender_id: sender_id,
+                    convoId: convoId
+                })
             })
-        })
-            .then(() => {
-                setText("");
-            })
+                .then(() => {
+                    setText("");
+                })
+        }
     }
+
+    const handleKeyDown = event => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            submitMessage();
+        }
+    };
 
     return (
         <>
             <label htmlFor="chat" className="sr-only">Your message</label>
-            <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
-                <textarea id="chat" rows="1" value={text} onChange={event => setText(event.target.value)}
+            <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700 h-[8svh]">
+                <textarea onKeyDown={handleKeyDown} id="chat" rows="1" value={text} onChange={event => setText(event.target.value)}
                           className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           placeholder="Your message..."></textarea>
                 <button onClick={submitMessage}

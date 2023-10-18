@@ -80,7 +80,7 @@ export default async function MatchesPage(){
     }
 
     return (
-        <div className={"flex justify-center flex-wrap py-8 gap-2 h-[90svh] overflow-scroll"}>
+        <div className={"flex justify-center flex-wrap py-8 gap-2 h-[90svh] overflow-scroll no-scrollbar"}>
             {elements}
         </div>
     )
